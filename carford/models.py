@@ -9,10 +9,6 @@ class Person(models.Model):
     def __str__(self):
         return str(self.nome)
 
-def restrict_amount(value):
-    if Person.objects.filter(person_car=value).count() >= 3:
-        raise ValidationError('Team already has maximal amount of rounds (3)')
-
 class Car(models.Model):
     COLOR_CHOICES = (
         ('Amarelo','Amarelo'),
@@ -24,7 +20,7 @@ class Car(models.Model):
         ('Sedan','Sedan'),
         ('Conversível','Conversível')
     )
-    pessoa = models.ForeignKey(Person,on_delete=models.CASCADE,related_name="person_car",validators=(restrict_amount, ))
+    pessoa = models.ForeignKey(Person,on_delete=models.CASCADE,related_name="person_car")
     cor = models.CharField(max_length=50,choices=COLOR_CHOICES)
     modelo = models.CharField(max_length=50,choices=TYPE_CHOICES)
     created_at = models.DateTimeField(auto_now_add=True)
