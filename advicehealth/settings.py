@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'carford',
     # APPS EXTERNOS
     'bootstrap4',
+    'django_filters'
 ]
 
 MIDDLEWARE = [
