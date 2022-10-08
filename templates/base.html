@@ -1,0 +1,21 @@
+{% load bootstrap4 %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Carford Car Shop</title>
+    <link rel="icon" href="https://sp-ao.shortpixel.ai/client/to_webp,q_lossless,ret_img,w_32,h_32/https://advicehealth.com.br/wp-content/uploads/2019/06/favicon-1.png" sizes="32x32">
+    {% bootstrap_css %}
+    {% bootstrap_javascript jquery='full' %}
+    {% block head %}
+    {% endblock %}
+</head>
+
+<body>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+</body>
+</html>
