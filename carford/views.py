@@ -6,13 +6,11 @@ from .filters import *
 
 def Dashboard(request):
     if request.GET:
-
         filters = request.GET.copy()
         queryset = Person.objects.all().order_by('nome')
         filtro = PersonFilter(filters, queryset=queryset)
     else:
         filtro = PersonFilter(request.GET, queryset=Person.objects.all())
-
     return render(request,'dashboard.html',{'people':filtro})
 
 class PersonCreateView(CreateView):
