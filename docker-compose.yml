@@ -19,9 +19,9 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     environment:
+      - POSTGRES_DB=advicehealth_dev
       - POSTGRES_USER=advicehealth_django
       - POSTGRES_PASSWORD=advicehealth_django
-      - POSTGRES_DB=advicehealth_prod
   nginx:
     build: ./nginx
     ports:
