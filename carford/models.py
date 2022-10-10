@@ -1,5 +1,5 @@
 from django.db import models
-from django.core.exceptions import ValidationError, FieldError
+from django.core.exceptions import ValidationError
 
 # Create your models here.
 class Person(models.Model):
@@ -33,7 +33,7 @@ class Car(models.Model):
         cor = Car.objects.filter(pessoa_id=self.pessoa_id,cor=self.cor)
         modelo = Car.objects.filter(pessoa_id=self.pessoa_id,modelo=self.modelo)
         if cor or modelo:
-            raise FieldError('{} já tem cor ou modelo desse tipo'.format(self.pessoa))            
+            raise ValidationError('{} já tem cor ou modelo desse tipo'.format(self.pessoa))            
         if Car.objects.filter(pessoa_id=self.pessoa_id).count() >= 3:
             raise ValidationError('{} já tem o máximo de carros permitidos'.format(self.pessoa))
     

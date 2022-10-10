@@ -1,4 +1,4 @@
-.env
+.env*
 
 __pycache__
 migrations
@@ -6,3 +6,5 @@ migrations
 *.pyc
 
 *.sqlite3
+
+app/

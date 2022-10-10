@@ -1,6 +1,6 @@
 from django.test import TestCase
 from .models import Person, Car
-from django.core.exceptions import ValidationError, FieldError
+from django.core.exceptions import ValidationError
 
 # Create your tests here.
 class PersonTestCase(TestCase):
@@ -17,13 +17,13 @@ class CarTestCase(TestCase):
         car = Car.objects.create(cor='Amarelo',modelo='Hatch',pessoa=person)
         self.assertEqual(car.cor,'Amarelo')
         self.assertEqual(car.modelo,'Hatch')
-        self.assertEqual(car.pessoa.nome,'João Bobão')
+        self.assertEqual(car.pessoa.nome,'{}'.format(person.nome))
         
 
         car_second = Car.objects.create(cor='Azul',modelo='Sedan',pessoa=person)
         self.assertIsNot(car_second.cor,'Amarelo')
         self.assertEqual(car_second.modelo,'Sedan')
-        self.assertEqual(car_second.pessoa.nome,'João Bobão')
+        self.assertEqual(car_second.pessoa.nome,'{}'.format(person.nome))
         
         ''' ADICIONANDO CARRO COM COR QUE NÃO EXISTE '''
         try:
@@ -34,11 +34,11 @@ class CarTestCase(TestCase):
         ''' TENTANDO ADICIONAR CARRO COM MODELO E COR JÁ ADICIONADOS '''
         try:
             Car.objects.create(cor='Azul',modelo='Hatch',pessoa=person)
-        except FieldError as e:
-            self.assertAlmostEqual(str(e),'{} já tem cor ou modelo desse tipo'.format(person.nome))
+        except ValidationError as e:
+            self.assertTrue('__all__' in e.message_dict)
         
         car_third = Car.objects.create(cor='Cinza',modelo='Conversível',pessoa=person)
         self.assertEqual(car_third.cor,'Cinza')
         self.assertEqual(car_third.modelo,'Conversível')
-        self.assertEqual(car_third.pessoa.nome,'João Bobão')
+        self.assertEqual(car_third.pessoa.nome,'{}'.format(person.nome))
         
